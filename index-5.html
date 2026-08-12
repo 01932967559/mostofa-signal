@@ -1,0 +1,31 @@
+<!doctype html><html lang="bn"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b0f14"><link rel="manifest" href="manifest.json">
+<title>Mostofa AI Signal</title>
+<style>
+body{margin:0;background:#0b0f14;color:#fff;font-family:Arial,sans-serif}main{max-width:520px;margin:auto;padding:18px}
+h1{text-align:center;margin:8px}.sub{text-align:center;color:#9aa5b4;margin-bottom:18px}
+.card{background:#151b23;border-radius:18px;padding:18px;margin:12px 0}
+#preview{width:100%;border-radius:12px;display:none;margin-top:12px}.signal{text-align:center;font-size:44px;font-weight:900;padding:28px;border-radius:18px;background:#3d3508;color:#ffd740}
+button{width:100%;padding:14px;margin-top:10px;border:0;border-radius:11px;background:#00c853;color:#06130a;font-size:17px;font-weight:800}
+.note{font-size:12px;color:#929dac;line-height:1.5}.result{line-height:1.7;color:#d8dee7}
+input{width:100%;padding:12px;box-sizing:border-box}
+</style></head><body><main>
+<h1>Mostofa AI Signal</h1><div class="sub">Screenshot → Chart Review → BUY / SELL / WAIT</div>
+<div class="card"><input id="shot" type="file" accept="image/*" capture="environment"><img id="preview">
+<button onclick="analyze()">ANALYZE SCREENSHOT</button></div>
+<div id="signal" class="signal">WAIT</div>
+<div class="card result" id="result">একটি Exness chart screenshot নির্বাচন করে ANALYZE চাপুন।</div>
+<div class="card note"><b>Important:</b> Screenshot-based analysis কখনো 100% sure-shot নয়। এই PWA এখন screenshot গ্রহণ করে; সত্যিকারের AI vision analysis-এর জন্য একটি secure AI/backend connection প্রয়োজন। এটি নিজে থেকে Exness-এ trade place করে না।</div>
+</main>
+<script>
+const file=document.getElementById('shot'), img=document.getElementById('preview');
+file.onchange=()=>{if(file.files[0]){img.src=URL.createObjectURL(file.files[0]);img.style.display='block'}};
+function analyze(){
+ if(!file.files[0]){alert('আগে chart screenshot দিন');return}
+ // Safe UI placeholder: no false claim of having interpreted pixels.
+ document.getElementById('signal').textContent='WAIT';
+ document.getElementById('result').innerHTML='<b>Screenshot received.</b><br>এই browser-only version screenshot সংরক্ষণ/preview করতে পারে, কিন্তু কোনো fake “AI signal” দেখায় না। Live AI signal-এর জন্য backend vision model সংযোগ করতে হবে।';
+}
+if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js');
+</script></body></html>
